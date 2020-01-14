@@ -3,12 +3,12 @@
    Working with Circuit Playground and Conductive Fibers
 
    This is made to control KidDisco game using Left,Right,Up and Down keys
-   http://kiddisco.asmallgame.com/
-
-   This is a small sample to run in the browser to see if your keys are working
+   http://kiddisco.asmallgame.com/ 
+ 
+    This is a small sample to run in the browser to see if your keys are working
    https://editor.p5js.org/2sman/sketches/rkGp1alib
 
-   Arduino Example code:
+   Arduino Example code: 
    https://www.arduino.cc/reference/en/language/functions/usb/keyboard/keyboardwrite/
    https://www.arduino.cc/en/Reference/KeyboardModifiers
 
@@ -18,31 +18,32 @@
    Social Body Lab, 2020 Jan.
 **************************************************************************/
 
-#include <Adafruit_CircuitPlayground.h>
+#include <Adafruit_CircuitPlayground.h>  
 
-#define CAP_THRESHOLD   250
+#define CAP_THRESHOLD   65 //increase this number if unintentional keypresses occur and 
+                           //decrease if buttons aren't sensitive enough
 #define DEBOUNCE        100
-
+ 
 #include <Keyboard.h>
 
 //Change the below values according to how you have connected your felted areas with your circuit playground
-int LeftPin = 9; // Set Pin 6 on Arduino to Left key
-int RightPin = 12; // Set Pin 7 on Arduino to Right key
-int UpPin = 10; // Set Pin 8 on Arduino to Up key
-int DownPin = 6; // Set Pin 9 on Arduino to Down key
+int LeftPin = 9; // Set Pin 9 on Arduino to Left key
+int RightPin = 12; // Set Pin 12 on Arduino to Right key
+int UpPin = 10; // Set Pin 10 on Arduino to Up key
+int DownPin = 6;     // Set Pin 6 on Arduino to Down key
 int APin = 2; // Set Pin 2 on Arduino to Space Key
-int BPin = 1; // Set Pin 1 on Arduino to Enter Key
+int BPin = 1; // Set Pin 1 on Arduino to Shift Key 
 
-//Change the below values according to what keys you want to
+   //Change the below values according to what keys you want to
 int KeyVal1 = 216; // Set ASCII value for Left key
 int KeyVal2 = 215; // Set ASCII value for Right key
 int KeyVal3 = 218; // Set ASCII value for Up key
-int KeyVal4 = 217; // Set ASCII value for Down key
-int KeyVal5 = 32; // Set ASCII value for Space key
-int KeyVal6 = 15; // Set ASCII value for Enter key
-
-/*
-  Other Common Keyboard ASCII Codes are
+int KeyVal4 = 217; // Set ASCII value for Down key     
+int KeyVal5 = 32; // Set ASCII value for Space key 
+int KeyVal6 = 15; // Set ASCII value for Shift key
+  
+  /* 
+  Other Common Keyboard ASCII Codes  ar e 
   "a" key = 92
   "w" key = 119
   "s" key = 115
@@ -50,7 +51,7 @@ int KeyVal6 = 15; // Set ASCII value for Enter key
 */
 
 
-boolean capButton(uint8_t pad) {
+boolean capButton(uint8_t pad) {    
   if (CircuitPlayground.readCap(pad) > CAP_THRESHOLD) {
     return true;
   } else {
@@ -181,6 +182,7 @@ void loop() {
 
   }
   if (capButton(2)) {
+    Serial.println("A Button Touched"); // Print message.
 
     // set the colour of all the LEDs to blue
     CircuitPlayground.setPixelColor(0, 0, 0, 255);
@@ -216,7 +218,7 @@ void loop() {
 
   }
   if (capButton(1)) {
-
+    Serial.println("B Button Touched"); // Print message
     // set the colour of all the LEDs to green
     CircuitPlayground.setPixelColor(0, 0, 255, 0);
     CircuitPlayground.setPixelColor(1, 0, 255, 0);
